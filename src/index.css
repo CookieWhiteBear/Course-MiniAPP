@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Apple Color Emoji";
+  src: url("/TwitterColorEmoji-SVGinOT.ttf") format("truetype");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    /* Dark Mode by Default */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* Distinct card background for contrast */
+    --card: 240 10% 3.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --radius: 0.5rem;
+
+    /* New Accents - HSL approximations */
+    --accent-pink: 336 80% 63%;
+    /* #eb5491 */
+    --accent-purple: 258 79% 63%;
+    /* #8154eb */
+    --accent-orange: 30 80% 63%;
+    /* #eba054 */
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Light mode (optional/unused for now) */
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    /* ... keep usage minimal since user requested dark */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .emoji {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  }
+
+  /* Hide cloudflare-stream custom tags before React processes them */
+  cloudflare-stream {
+    display: none;
+  }
+
+  /* Show the wrapper after React renders */
+  .cloudflare-stream-wrapper {
+    display: block;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/70 backdrop-blur-xl border-t border-white/10 shadow-2xl;
+    /* Noise texture overlay could be added here if we had an asset, 
+       using a high blur and slight opacity boost for now. */
+  }
+
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-md border border-white/5 shadow-lg;
+  }
+
+  .glass-nav {
+    @apply bg-[#0c0c0e]/80 backdrop-blur-2xl border-t border-white/5;
+    box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+}

@@ -1,0 +1,136 @@
+app:
+  name: CourseGlobal
+  description: Telegram MiniApp course platform
+  defaultCurrency: USD # used when course currency is missing
+
+env:
+  port: 3001
+  nodeEnv: development
+  demoMode: true
+  defaultLanguage: en
+  frontendUrl: http://localhost:5173
+  redis:
+    host: localhost
+    port: 6379
+    password: ""
+  telegram:
+    botToken: ""
+    webhookUrl: ""
+    adminIds: []
+  paypal:
+    clientId: ""
+    secret: ""
+    webhookId: ""
+    mode: sandbox
+  cloudflare:
+    accountId: ""
+    apiToken: ""
+    signingKey: ""
+    customerSubdomain: ""
+  video:
+    signingKey: ""
+
+features:
+  demoMode: true # toggles demo-only behavior in app logic
+  telegramAuth: true # allow Telegram initData auth
+  supportChat: true # enable support/tickets UI
+
+payments:
+  paypal:
+    enabled: true
+    currency: USD # default currency for PayPal orders
+  telegramStars:
+    enabled: true
+
+demo:
+  avatarUrl: https://i.imgur.com/zOlPMhT.png
+  userNamePrefix: Demo # label for demo profiles
+  support:
+    seedMessage: Demo text # initial demo message
+    seedReply: Demo reply # initial demo reply
+
+ui:
+  homeHero:
+    imageUrl: https://i.imgur.com/zOlPMhT.png
+    wave:
+      # Wave gradient settings for HomeHero background
+      colors:
+        - "#e8320e"
+        - "#e88d0e"
+        - "#e8320e"
+        - "#120012"
+        - "#07004f"
+        - "#1200d9"
+        - "#120012"
+        - "#120012"
+      fps: 30
+      seed: 0
+      speed: 1.1
+
+authors:
+  - id: demo
+    name: Demo Instructor
+    avatarUrl: https://i.imgur.com/zOlPMhT.png
+
+courses:
+  - id: 1
+    title: Demo Course 1
+    authorId: demo
+    description: Demo course showcasing platform features
+    category: Demo
+    imageUrl: https://i.imgur.com/zOlPMhT.png
+    duration: 6h 30m
+    program:
+      # Program supports inline icons: <ico:video>, <ico:read>, <ico:quiz>, <ico:practice>, <ico:project>, <ico:live>, <ico:file>, <ico:clock>, <ico:code>
+      - "<ico:video> Getting started"
+      - "<ico:read> Core concepts"
+      - "<ico:practice> Hands-on practice"
+      - "<ico:project> Final project"
+    price: 9.99
+    starsPrice: 100 # Telegram Stars price
+    currency: USD # overrides app.defaultCurrency
+    visibility: public # public | hidden
+  - id: 2
+    title: Demo Course 2
+    authorId: demo
+    description: Demo course showcasing platform features
+    category: Demo
+    imageUrl: https://i.imgur.com/zOlPMhT.png
+    duration: 4h 10m
+    price: 9.99
+    starsPrice: 100
+    currency: USD
+    visibility: public
+  - id: 3
+    title: Demo Course 3
+    authorId: demo
+    description: Demo course showcasing platform features
+    category: Demo
+    imageUrl: https://i.imgur.com/zOlPMhT.png
+    duration: 5h 45m
+    price: 9.99
+    starsPrice: 100
+    currency: USD
+    visibility: public
+  - id: 4
+    title: Demo Course 4
+    authorId: demo
+    description: Demo course showcasing platform features
+    category: Demo
+    imageUrl: https://i.imgur.com/zOlPMhT.png
+    duration: 3h 25m
+    price: 60
+    starsPrice: 100
+    currency: USD
+    visibility: public
+  - id: 5
+    title: Demo Course 5
+    authorId: demo
+    description: Demo course showcasing platform features
+    category: Demo
+    imageUrl: https://i.imgur.com/zOlPMhT.png
+    duration: 2h 50m
+    price: 9.99
+    starsPrice: 100
+    currency: USD
+    visibility: public

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: light;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light">
+    <meta name="theme-color" content="#ffffff">
+    <title>Payment...</title>
+    <style>
+        :root {
+            color-scheme: light only !important;
+            supported-color-schemes: light !important;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+        html, body {
+            color-scheme: light only !important;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1c1c1e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .background {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #47256e 0%, #1a0a2e 50%, #8f280b 100%);
+            z-index: 0;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s ease-in-out infinite;
+        }
+        .blob1 {
+            top: -10%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: #47256e;
+            animation-delay: 0s;
+        }
+        .blob2 {
+            top: 20%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: #b64ad4;
+            animation-delay: 3s;
+        }
+        .blob3 {
+            bottom: -10%;
+            left: 30%;
+            width: 55%;
+            height: 55%;
+            background: #FCAF45;
+            animation-delay: 6s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 48px 32px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        .spinner {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 24px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+        p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .secure {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .lock {
+            width: 14px;
+            height: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
+    <div class="container">
+        <div class="logo">??</div>
+        <div class="spinner"></div>
+        <h1>Redirecting to PayPal</h1>
+        <p>Please wait while we prepare a secure payment...</p>
+        <div class="secure">
+            <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Secure connection</span>
+        </div>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const paypalUrl = urlParams.get('url');
+
+        if (paypalUrl) {
+            // Force light color scheme before redirect
+            document.documentElement.style.colorScheme = 'light';
+            document.body.style.colorScheme = 'light';
+
+            setTimeout(() => {
+                window.location.replace(decodeURIComponent(paypalUrl));
+            }, 800);
+        } else {
+            document.querySelector('.container').innerHTML = `
+                <div class="logo">??</div>
+                <h1>Error</h1>
+                <p>Payment URL is missing</p>
+            `;
+        }
+    </script>
+</body>
+</html>

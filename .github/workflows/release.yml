@@ -1,0 +1,66 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Запускается при push тега типа v1.0.0
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (root)
+        run: npm install
+
+      - name: Install dependencies (server)
+        run: cd server && npm install
+
+      - name: Build project
+        run: node build-deploy.js
+
+      - name: Create release archive
+        run: |
+          cd pterodactyl
+          zip -r ../pterodactyl-release.zip .
+          cd ..
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: pterodactyl-release.zip
+          body: |
+            ## 🚀 Production Release ${{ steps.version.outputs.VERSION }}
+
+            Готовая сборка для деплоя на сервер.
+
+            ### Установка:
+
+            1. Скачай `pterodactyl-release.zip`
+            2. Распакуй на сервере
+            3. Выполни:
+               ```bash
+               cd pterodactyl
+               npm install --production
+               cp .env.example .env  # Настрой .env
+               node app.js
+               ```
+
+            ### Изменения в этой версии:
+            - Исправлена интеграция с Tebex через официальный Headless API
+            - Улучшена обработка ошибок при создании платежей
+            - Обновлена документация
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

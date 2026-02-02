@@ -1,0 +1,24 @@
+start:
+  message: Hi! To get started, open our app.
+  button: Open app
+
+fallback:
+  message: |
+    Sorry, I did not understand that message.
+
+    If you want to open the courses app, tap the button below.
+  button: Open app
+
+dashboard:
+  message: Open the admin dashboard.
+  button: Open dashboard
+
+purchase:
+  processing: Processing payment for course "{{course}}"...
+  success: |
+    ✅ Payment successful!
+
+    You now have access to the course "{{course}}".
+
+    Open the app to start learning.
+  confirmed: Payment confirmed! Course "{{course}}" is now available.

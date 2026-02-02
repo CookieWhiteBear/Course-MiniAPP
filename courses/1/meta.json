@@ -1,0 +1,10 @@
+{
+  "title": "Demo Course 1",
+  "author": "Demo",
+  "description": "Demo course showcasing platform features",
+  "category": "Demo",
+  "imageUrl": "https://i.imgur.com/zOlPMhT.png",
+  "price": 9.99,
+  "starsPrice": 100,
+  "currency": "USD"
+}

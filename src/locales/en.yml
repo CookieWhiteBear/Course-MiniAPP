@@ -1,0 +1,349 @@
+meta:
+  name: English
+  flag: "🇺🇸"
+
+common:
+  back: Back
+  close: Close
+  cancel: Cancel
+  save: Save
+  edit: Edit
+  delete: Delete
+  refresh: Refresh
+  view: View
+  loading: Loading...
+  retry: Retry
+  price: Price
+  total: Total
+  support: Support
+  done: Done
+  course: Course
+  courses: Courses
+  lessons: lessons
+  lesson: Lesson
+  duration: Duration
+  progress: Progress
+  completed: Completed
+  buy: Buy
+  continue: Continue
+  na: N/A
+  guest: Guest
+  demo: Demo
+  admin: Admin
+  user: User
+  language: Language
+  selectLanguage: Select language
+  search: Search
+  error: Error
+  enrollNow: Enroll now
+  loadingError: Loading error
+
+nav:
+  home: Home
+  myCourses: My Courses
+  profile: Profile
+
+dash:
+  title: Dashboard
+  subtitle: Live overview of users, orders, and revenue.
+  header:
+    dashboard:
+      title: Operations
+      subtitle: Dashboard
+    support:
+      title: Ticket panel
+      subtitle: Support
+    users:
+      title: User control
+      subtitle: Users
+    transactions:
+      title: Money flow
+      subtitle: Transactions
+    reviews:
+      title: Feedback loop
+      subtitle: Reviews
+    courses:
+      title: Course pulse
+      subtitle: Courses
+  nav:
+    dashboard: Dashboard
+    support: Support
+    users: Users
+    transactions: Transactions
+    reviews: Reviews
+    courses: Courses
+  filters:
+    from: From date
+    to: To date
+    range: Date range
+  access:
+    disabledTitle: Dashboard disabled
+    disabledDescription: The admin dashboard is not available in demo mode.
+    deniedTitle: Access denied
+    deniedDescription: You do not have permission to view the admin dashboard.
+    backToApp: Back to app
+  metrics:
+    newUsers24h: New users (24h)
+    orders24h: Orders (24h)
+    revenue24h: Revenue (24h)
+    activeUsers24h: Active users (24h)
+    comingSoon: 7d / all-time coming soon
+    range7d: "7d: {{value}}"
+    rangeAll: "All: {{value}}"
+  sections:
+    latestTransactions: Latest transactions
+    recentSupport: Recent support activity
+    placeholder: Data will appear here.
+    empty: No data yet.
+    generalPurchase: Purchase
+    userFallback: User
+  users:
+    title: Users
+    subtitle: Search, manage courses, and review user activity.
+    placeholder: User list and actions will be added here.
+    search: Search by name, username, or ID...
+    empty: No users found.
+    selectUser: Select a user to view details.
+    details: Details
+    firstName: First name
+    lastName: Last name
+    username: Username
+    blockReviews: Block reviews for this user
+    courses: "Courses: {{count}}"
+    orders: "Orders: {{count}}"
+    prev: Prev
+    next: Next
+    page: "Page {{page}} of {{total}}"
+  transactions:
+    title: Transactions
+    subtitle: Filter payments by status, date range, user, or course.
+    placeholder: Transaction filters and table will be added here.
+    search: Search by user, payment, or id...
+    statusAll: All statuses
+    statusPending: Pending
+    statusSuccess: Success
+    statusFailed: Failed
+    statusRefunded: Refunded
+    empty: No transactions found.
+    colDate: Date
+    colUser: User
+    colCourse: Course
+    colAmount: Amount
+    colStatus: Status
+    colId: ID
+    prev: Prev
+    next: Next
+    page: "Page {{page}} of {{total}}"
+  reviews:
+    title: Reviews
+    subtitle: Reply to or remove reviews with course context.
+    placeholder: Review moderation UI will be added here.
+    search: Search by user or text...
+    ratingAll: All ratings
+    ratingValue: "{{value}} stars"
+    courseId: Course ID
+    empty: No reviews found.
+    noComment: No comment
+    reply: Admin reply
+    prev: Prev
+    next: Next
+    page: "Page {{page}} of {{total}}"
+  courses:
+    title: Courses
+    subtitle: View course summaries and enrollment stats.
+    placeholder: Course overview cards will be added here.
+    empty: No courses found.
+    students: Students
+    revenue: Revenue
+    rating: Rating
+    reviews: Reviews
+
+home:
+  title: Courses
+  subtitle: Choose courses for your professional growth.
+  searchPlaceholder: Search courses...
+  noCourses: No courses found
+  payment:
+    successTitle: Payment successful!
+    successMessage: Your course access is now active. Check "My Courses" section.
+  hero:
+    ringText: "Demo Text - Demo Text -"
+    demoAlt: Demo
+
+myCourses:
+  title: My Courses
+  subtitle: Continue learning from where you left off.
+  searchPlaceholder: Filter courses...
+  emptyTitle: You don't have any courses yet
+  emptySubtitle: Purchase a course to start learning
+  refresh: Refresh
+
+course:
+  notFound: Course not found
+  instructorAlt: Instructor
+  authorLabel: Course author
+  aboutTitle: About the course
+  aboutFallback: Learn new skills with this comprehensive course.
+  programTitle: Course program
+  programLessonsLabel: Lessons
+  programDurationLabel: Duration
+  programLocked: The full program becomes available after purchase.
+  reviewsTitle: Reviews
+  reviewsAll: All reviews
+  reviewsNone: No reviews yet
+  reviewsCount: "({{count}} reviews)"
+  lessonsCount: "{{count}} lessons"
+  stickyPill: Courses
+
+profile:
+  avatarAlt: Profile
+  supportTitle: Support
+  supportSubtitle: Contact support
+  dashboardTitle: Admin dashboard
+  dashboardSubtitle: Open analytics and moderation
+  demoRoleTitle: Demo role
+  demoRoleSubtitle: Tap to switch Admin/User
+  demoRoleAdminShort: AD
+  demoRoleUserShort: US
+  demoRoleAdmin: Admin
+  demoRoleUser: User
+  tabGeneral: General
+  tabBilling: Billing History
+  telegramIdLabel: Telegram ID
+  languageTitle: Language
+  languageSubtitle: Choose interface language
+  billingEmpty: No transactions yet
+
+purchase:
+  priceLabel: Price
+  buyCourse: Buy course
+  title: Purchase confirmation
+  subtitle: Full access to the course.
+  coursePrice: Course price
+  payWithPayPal: Pay with PayPal
+  paypalMethods: Visa/MC/PayPal
+  total: Total
+  creatingPayment: Creating payment...
+  pay: "Pay {{price}}"
+  payWithStars: With Stars
+  starsUnavailable: Stars price is not available.
+  starsPaymentFailed: Stars payment failed.
+  starsPaymentCanceled: Stars payment was canceled.
+  starsInvoiceFailed: Failed to create a stars invoice.
+  paymentFailed: Failed to create payment
+  telegramStarsAlt: Telegram Stars
+  cancel: Cancel
+
+courseCard:
+  progress: Progress
+  completed: Completed
+  buy: Buy
+  continue: Continue
+
+lesson:
+  notFound: Lessons not found. The course may not be purchased yet.
+  counter: "Lesson {{current}} of {{total}}"
+  searchResults: 'Found {{count}} results for "{{query}}"'
+  completionTitle: Course completed!
+  reviewCourseFallback: Course
+
+lessonFooter:
+  searchPlaceholder: Search in lesson...
+
+review:
+  title: Rate this course
+  placeholder: Share your feedback (optional)...
+  submit: Submit review
+  edit: Edit review
+  edited: edited
+  delete: Delete review
+  confirmDelete: Delete this review?
+  like: Like
+  dislike: Dislike
+  reply: Reply
+  replyTitle: Admin reply
+  replyPlaceholder: Write a reply...
+  replySend: Send reply
+
+quiz:
+  submitError: Failed to submit answers. Try again.
+  passedTitle: Great! Quiz passed!
+  failedTitle: Try again
+  passedSubtitle: You passed the quiz and can continue learning
+  failedSubtitle: "You need at least {{score}}% to pass"
+  yourScore: Your score
+  points: Points
+  time: Time
+  attempt: Attempt
+  tryAgain: Try again
+  reviewMaterials: Review additional materials
+  reviewExplanations: Review answer explanations
+  noAttemptsTitle: No attempts left
+  noAttemptsSubtitle: "You have used all available attempts ({{max}})"
+  bestScore: "Best score: {{score}}%"
+  questionCounter: "Question {{current}} of {{total}}"
+  hideHint: Hide hint
+  showHint: Show hint
+  multiSelectHint: You can select multiple answers
+  back: Back
+  next: Next
+  submitting: Submitting...
+  finish: Finish quiz
+
+remedial:
+  loading: Loading materials...
+  close: Close
+  backToList: Back to list
+  openExtra: Open extra material
+  title: Extra materials
+  subtitle: Study these materials to improve your knowledge and pass the test
+  empty: No extra materials for this lesson yet
+  retry: Retry quiz
+  type:
+    video: Video
+    article: Article
+    practice: Practice
+    text: Text
+
+support:
+  title: Support
+  adminPanel: Admin panel
+  backToList: Back to list
+  searchUser: Search user...
+  noMessages: No messages
+  demoSubtitle: Demo support chat
+  userIdLabel: "ID: {{id}}"
+  userData: User data
+  loading: Loading...
+  refresh: Refresh
+  dataUnavailable: Data unavailable
+  coursesTitle: Courses
+  noCourses: No courses
+  remove: Remove
+  grantCourse: Grant course
+  selectCourse: Select course
+  grant: Grant
+  transactionsTitle: Transactions
+  noTransactions: No transactions
+  edited: edited
+  save: Save
+  cancel: Cancel
+  edit: Edit
+  delete: Delete
+  confirmRemoveCourse: Remove course from user?
+  confirmDeleteMessage: Delete message?
+  typeMessage: Type message...
+  view: View
+  close: Close
+
+video:
+  loadingError: Video loading error
+  quality: Quality
+  auto: Auto
+
+cloudflare:
+  loading: Loading video...
+  retry: Retry
+  errorLoad: Failed to load video. Please try again later.
+  errorPlayback: Video playback error
+  title: "Cloudflare Stream Video {{id}}"
