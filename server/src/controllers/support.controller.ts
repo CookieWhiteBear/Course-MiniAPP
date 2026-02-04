@@ -4,6 +4,7 @@ import { createError } from '../middleware/error.middleware.js'
 import { notifyNewSupportMessage } from '../services/support-notifications.service.js'
 import { config } from '../config/env.js'
 import { isDemoRequest } from '../utils/demo.js'
+import { isAdminTelegramId } from '../utils/admin.js'
 
 type SenderType = 'user' | 'admin'
 
@@ -70,7 +71,7 @@ function isAdminRequest(req: Request): boolean {
     }
 
     const telegramId = req.telegramId ?? req.user?.telegram_id
-    return !!telegramId && config.adminTelegramIds.includes(telegramId)
+    return isAdminTelegramId(telegramId)
 }
 
 function formatUserName(row?: { first_name?: string | null; last_name?: string | null; username?: string | null }): string {

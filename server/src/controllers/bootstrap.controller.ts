@@ -11,6 +11,7 @@ import type {
 } from '../types/models.js'
 import { formatCurrency, formatSignedCurrency, normalizeCurrency } from '../utils/currency.js'
 import { formatDate } from '../utils/date.js'
+import { isAdminTelegramId } from '../utils/admin.js'
 
 async function getUserCourses(userId: number): Promise<UserCourseResponse[]> {
     const cacheKey = CACHE_KEYS.USER_COURSES(userId)
@@ -179,7 +180,7 @@ async function getUnreadCount(userId: number, isAdmin: boolean): Promise<number>
 export async function getBootstrap(req: Request, res: Response, next: NextFunction) {
     try {
         const user = req.user!
-        const isAdmin = config.adminTelegramIds.includes(user.telegram_id)
+        const isAdmin = isAdminTelegramId(user.telegram_id)
 
         const [courses, transactions, unreadCount] = await Promise.all([
             getUserCourses(user.id),

@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
 import { config } from '../config/env.js'
 import { createError } from './error.middleware.js'
+import { isAdminTelegramId } from '../utils/admin.js'
 
 /**
  * Admin middleware - verifies user has admin privileges
@@ -20,7 +21,7 @@ export function adminMiddleware(req: Request, _res: Response, next: NextFunction
         }
     }
 
-    if (!telegramId || !config.adminTelegramIds.includes(telegramId)) {
+    if (!isAdminTelegramId(telegramId)) {
         return next(createError('Admin access required', 403))
     }
 

@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 import { logger } from '../utils/logger.js'
-import { config } from '../config/env.js'
+import { isAdminTelegramId } from '../utils/admin.js'
 import { sendDashboardMessage, sendFallbackMessage, sendStartMessage, answerPreCheckoutQuery } from '../services/telegram-bot.service.js'
 import { parseStarsPayload } from '../services/telegram-stars.service.js'
 import { loadCourseMetadata } from '../services/filesystem-loader.js'
@@ -63,7 +63,7 @@ export async function handleTelegramWebhook(req: Request, res: Response) {
         }
 
         if (messageText?.startsWith('/dash')) {
-            if (senderId && config.adminTelegramIds.includes(senderId)) {
+            if (isAdminTelegramId(senderId)) {
                 await sendDashboardMessage(chatId, languageCode)
             } else {
                 await sendFallbackMessage(chatId, languageCode)
