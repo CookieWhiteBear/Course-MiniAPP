@@ -36,6 +36,7 @@ features:
   demoMode: true
   telegramAuth: false
   supportChat: true
+  hidePublic: false
 
 payments:
   paypal:

@@ -140,7 +140,6 @@ async function getTransactions(userId: number): Promise<TransactionResponse[]> {
                     courseTitle = meta.title
                 }
             }
-            const currency = normalizeCurrency(tx.currency, defaultCurrency)
 
             return {
                 id: tx.id,

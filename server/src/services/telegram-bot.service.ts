@@ -1,6 +1,7 @@
 import { config } from '../config/env.js'
 import { logger } from '../utils/logger.js'
 import { botT } from '../utils/bot-i18n.js'
+import { buildWebAppUrl } from '../utils/webapp-url.js'
 
 const TELEGRAM_API_BASE = 'https://api.telegram.org/bot'
 
@@ -116,7 +117,7 @@ export async function sendStartMessage(chatId: number, languageCode?: string): P
             {
                 text: botT(languageCode, 'start.button'),
                 web_app: {
-                    url: config.frontendUrl
+                    url: buildWebAppUrl()
                 }
             }
         ]]
@@ -132,7 +133,7 @@ export async function sendFallbackMessage(chatId: number, languageCode?: string)
             {
                 text: botT(languageCode, 'fallback.button'),
                 web_app: {
-                    url: config.frontendUrl
+                    url: buildWebAppUrl()
                 }
             }
         ]]
@@ -148,7 +149,7 @@ export async function sendDashboardMessage(chatId: number, languageCode?: string
             {
                 text: botT(languageCode, 'dashboard.button'),
                 web_app: {
-                    url: `${config.frontendUrl}/dash`
+                    url: buildWebAppUrl('/dash')
                 }
             }
         ]]

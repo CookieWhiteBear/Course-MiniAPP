@@ -1,4 +1,3 @@
-import crypto from 'crypto'
 import type { Request, Response, NextFunction } from 'express'
 import { validate } from '@telegram-apps/init-data-node'
 import { config } from '../config/env.js'
@@ -73,39 +72,18 @@ async function getOrCreateDemoUser(req: Request): Promise<User> {
     return user
 }
 
-const initDataReplayStore = new Map<string, number>()
 const INIT_DATA_MIN_TTL = 60
 const INIT_DATA_MAX_TTL = 3600
 
-function cleanupInitDataReplayStore() {
-    const now = Date.now()
-    for (const [hash, expiresAt] of initDataReplayStore.entries()) {
-        if (expiresAt <= now) {
-            initDataReplayStore.delete(hash)
-        }
-    }
-}
-
-function isInitDataReplay(hash: string): boolean {
-    cleanupInitDataReplayStore()
-    return initDataReplayStore.has(hash)
-}
-
-function markInitDataAsUsed(hash: string, ttl: number) {
-    cleanupInitDataReplayStore()
-    const expiresAt = Date.now() + ttl * 1000
-    initDataReplayStore.set(hash, expiresAt)
-}
-
 function normalizeInitDataTtl(value: number | undefined): number {
-    const ttl = Number.isFinite(value) ? value : config.telegram.initDataMaxAgeSeconds
+    const fallback = Number.isFinite(config.telegram.initDataMaxAgeSeconds)
+        ? config.telegram.initDataMaxAgeSeconds
+        : INIT_DATA_MAX_TTL
+    const ttl = typeof value === 'number' && Number.isFinite(value)
+        ? value
+        : fallback
     return Math.max(INIT_DATA_MIN_TTL, Math.min(ttl, INIT_DATA_MAX_TTL))
 }
-
-function hashInitData(value: string): string {
-    return crypto.createHash('sha256').update(value).digest('hex')
-}
-
 
 /**
  * Authentication middleware
@@ -169,15 +147,6 @@ export async function authMiddleware(
         logger.debug('AuthSuccessful', `Authentication successful for telegram_id ${telegramUser.id}, path ${req.path}, correlation_id ${correlationId}`)
 
         req.telegramId = telegramUser.id
-
-        const initDataHash = hashInitData(initData)
-        const replayKey = CACHE_KEYS.INIT_DATA(initDataHash)
-        const seenInCache = await cache.get<boolean>(replayKey)
-        if (seenInCache || isInitDataReplay(initDataHash)) {
-            throw createError('Telegram authorization replay detected', 401)
-        }
-        markInitDataAsUsed(initDataHash, initDataTtl)
-        await cache.set(replayKey, true, initDataTtl)
 
         // Get or create user
         let user = await cache.get<User>(CACHE_KEYS.USER(telegramUser.id))

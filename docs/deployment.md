@@ -191,6 +191,7 @@ NODE_ENV=production
 PORT=3001
 FRONTEND_URL=https://your-domain.com
 DEMO_MODE=false
+HIDE_PUBLIC=false
 
 REDIS_ENABLED=true
 REDIS_HOST=localhost

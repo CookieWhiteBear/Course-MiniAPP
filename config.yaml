@@ -35,6 +35,7 @@ features:
   demoMode: true # toggles demo-only behavior in app logic
   telegramAuth: true # allow Telegram initData auth
   supportChat: true # enable support/tickets UI
+  hidePublic: true # MiniApp-only mode (requires /tg WebApp URL, drops external browsers) example: https://example.com/tg
 
 payments:
   paypal:

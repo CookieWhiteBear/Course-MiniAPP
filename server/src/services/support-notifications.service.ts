@@ -1,7 +1,7 @@
-import { config } from '../config/env.js'
 import { query } from '../config/database.js'
 import { sendTelegramMessage } from './telegram-bot.service.js'
 import { logger } from '../utils/logger.js'
+import { buildWebAppUrl } from '../utils/webapp-url.js'
 
 interface TelegramUserRow {
     telegram_id: number | null
@@ -33,7 +33,7 @@ Open the app to view it.`
                 {
                     text: 'Open ticket',
                     web_app: {
-                        url: `${config.frontendUrl}/support`
+                        url: buildWebAppUrl('/support')
                     }
                 }
             ]]

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Connection Refused</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body { display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; color: #333; background: #fff; }
+      .msg { text-align: center; font-size: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="msg">Connection refused</div>
+    <script>
+      (function () {
+        var TIMEOUT_MS = 1200;
+        var INTERVAL_MS = 60;
+        var start = Date.now();
+
+        function rememberInitData(value) {
+          if (!value) return;
+          try {
+            window.sessionStorage.setItem("cg_init_data", value);
+          } catch (_) {}
+        }
+
+        function getTelegramInitData() {
+          try {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
+              return window.Telegram.WebApp.initData;
+            }
+          } catch (_) {}
+          return "";
+        }
+
+        function getInitDataFromHash() {
+          var hash = window.location.hash || "";
+          if (hash.charAt(0) === "#") hash = hash.slice(1);
+          if (!hash) return "";
+          var params = new URLSearchParams(hash);
+          var value = params.get("tgWebAppData") || params.get("initData") || params.get("initdata") || "";
+          if (!value) return "";
+          try {
+            return decodeURIComponent(value);
+          } catch (_) {
+            return value;
+          }
+        }
+
+        function getNextPath() {
+          try {
+            var params = new URLSearchParams(window.location.search || "");
+            var raw = params.get("to") || params.get("path") || params.get("next") || "";
+            if (!raw) return "/";
+            if (raw.indexOf("://") !== -1) return "/";
+            if (raw.indexOf("//") === 0) return "/";
+            return raw.charAt(0) === "/" ? raw : "/" + raw;
+          } catch (_) {
+            return "/";
+          }
+        }
+
+        function getInitData() {
+          return getTelegramInitData() || getInitDataFromHash();
+        }
+
+        function fail() {
+          try {
+            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.close) {
+              window.Telegram.WebApp.close();
+            }
+          } catch (_) {}
+        }
+
+        var nextPath = getNextPath();
+
+        function tryAuth() {
+          var initData = getInitData();
+          if (!initData) {
+            if (Date.now() - start >= TIMEOUT_MS) {
+              fail();
+              return;
+            }
+            window.setTimeout(tryAuth, INTERVAL_MS);
+            return;
+          }
+
+          fetch("/api/bootstrap", {
+            method: "GET",
+            headers: { "X-Telegram-Init-Data": initData },
+            cache: "no-store"
+          })
+            .then(function (res) {
+              if (!res.ok) throw new Error("unauthorized");
+              rememberInitData(initData);
+              window.location.replace(nextPath);
+            })
+            .catch(function () {
+              fail();
+            });
+        }
+
+        try {
+          if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.ready) {
+            window.Telegram.WebApp.ready();
+            if (window.Telegram.WebApp.expand) {
+              window.Telegram.WebApp.expand();
+            }
+          }
+        } catch (_) {}
+
+        tryAuth();
+      })();
+    </script>
+  </body>
+</html>

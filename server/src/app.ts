@@ -9,6 +9,7 @@ import { getDB } from './config/database.js'
 import { errorHandler } from './middleware/error.middleware.js'
 import { rateLimiter } from './middleware/rateLimit.middleware.js'
 import { botShield } from './middleware/botShield.middleware.js'
+import { hidePublic } from './middleware/hidePublic.middleware.js'
 import routes from './routes/index.js'
 import { logger, requestLogger } from './utils/logger.js'
 import { registerTelegramWebhook } from './services/telegram-bot.service.js'
@@ -510,7 +511,8 @@ app.disable('x-powered-by')
 
 // Security middleware - relaxed for same-origin frontend
 app.use(helmet({
-    contentSecurityPolicy: false // Allow inline scripts for React
+    contentSecurityPolicy: false, // Allow inline scripts for React
+    referrerPolicy: { policy: 'no-referrer' }
 }))
 
 // CORS configuration
@@ -542,6 +544,7 @@ app.use(cors({
 // Performance middleware
 app.use(compression())
 app.use(express.json({ limit: '10mb' }))
+app.use(hidePublic())
 app.use(botShield())
 
 // Request logging (only in development)
@@ -637,6 +640,9 @@ if (config.nodeEnv === 'development') {
 
 // Serve static frontend files
 const staticPath = path.join(__dirname, 'public')
+app.get(['/tg', '/tg/'], (_req, res) => {
+    res.sendFile(path.join(staticPath, 'tg.html'))
+})
 app.use(express.static(staticPath))
 
 // SPA fallback - serve index.html for all non-API routes

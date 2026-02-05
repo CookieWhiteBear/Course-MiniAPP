@@ -66,6 +66,8 @@ interface TelegramWebApp {
     }
 }
 
+const INIT_DATA_STORAGE_KEY = 'cg_init_data'
+
 export function getTelegram(): TelegramWebApp | null {
     return window.Telegram?.WebApp ?? null
 }
@@ -75,13 +77,22 @@ export function getTelegramUser() {
     return tg?.initDataUnsafe?.user ?? null
 }
 
+function readStoredInitData(): string {
+    if (typeof window === 'undefined') return ''
+    try {
+        return window.sessionStorage.getItem(INIT_DATA_STORAGE_KEY) || ''
+    } catch {
+        return ''
+    }
+}
+
 export function getTelegramInitData(): string {
     const tg = getTelegram()
-    return tg?.initData ?? ''
+    return tg?.initData || readStoredInitData()
 }
 
 export function isTelegramWebApp(): boolean {
-    return !!getTelegram()?.initData
+    return Boolean(getTelegram()?.initData || readStoredInitData())
 }
 
 // Initialize Telegram WebApp

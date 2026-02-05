@@ -48,8 +48,32 @@ features:
   demoMode: boolean
   telegramAuth: boolean
   supportChat: boolean
+  hidePublic: boolean
 
 `env.telegram.initDataTtl` defines how many seconds a Telegram `initData` payload remains valid before the server rejects it. A shorter TTL (default 300s) reduces the replay window for intercepted credentials.
+`features.hidePublic` gates access to the frontend and public API routes behind valid Telegram `initData`. When enabled, unauthenticated requests are dropped at the connection level (browser shows a real network error).
+
+### `features.hidePublic` (MiniApp-only access)
+**What it does**
+- Blocks all frontend/static requests unless the client has a valid access cookie.
+- Allows API requests only when they include valid `x-telegram-init-data`.
+- Provides a dedicated MiniApp entry point at `/tg` (and `/tg/`).
+
+**How to enable**
+1. Set `features.hidePublic: true`
+2. Ensure `env.telegram.botToken` is set (required to validate initData).
+3. Update your Telegram MiniApp URL in BotFather to point to `/tg`:
+   Example: `https://your-domain.example/tg`
+
+**How it works**
+1. Telegram opens `/tg` inside the MiniApp.
+2. `/tg` verifies Telegram auth using `initData`.
+3. On success it redirects to `/` (or to a deep link if `?to=/path` is provided) and sets an access cookie.
+4. Any external browser without the cookie gets a hard connection drop.
+
+**Notes**
+- If the MiniApp URL is still `/`, the server will drop the connection.
+- For external browsers, this is intentional: the page won’t load, and no title/favicon is shown.
 
 payments:
   paypal:
@@ -118,6 +142,7 @@ NODE_ENV=production
 DEMO_MODE=false
 DEFAULT_LANGUAGE=en
 FRONTEND_URL=https://example.com
+HIDE_PUBLIC=false
 
 REDIS_ENABLED=true
 REDIS_HOST=localhost

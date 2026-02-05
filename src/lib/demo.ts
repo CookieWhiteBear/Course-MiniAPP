@@ -1,4 +1,5 @@
 import { isTelegramWebApp } from "./telegram"
+import { isHidePublicEnabled } from "./hidePublic"
 
 const DEMO_USER_KEY = "demo_user_id"
 const DEMO_ROLE_KEY = "demo_role"
@@ -7,6 +8,7 @@ const DEMO_AVATAR_URL = "https://i.imgur.com/zOlPMhT.png"
 type DemoRole = "admin" | "user"
 
 export function isDemoMode(): boolean {
+    if (isHidePublicEnabled()) return false
     if (import.meta.env.VITE_DEMO_MODE === "true") return true
     if (typeof window === "undefined") return false
     return !isTelegramWebApp()

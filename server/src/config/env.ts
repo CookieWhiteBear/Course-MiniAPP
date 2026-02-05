@@ -55,6 +55,13 @@ function loadConfigEnv(): Record<string, string> {
         setEnv('NODE_ENV', envConfig.nodeEnv ?? envConfig.NODE_ENV)
         setEnv('DEMO_MODE', envConfig.demoMode ?? envConfig.DEMO_MODE ?? featuresConfig.demoMode)
         setEnv('FRONTEND_URL', envConfig.frontendUrl ?? envConfig.FRONTEND_URL)
+        setEnv(
+            'HIDE_PUBLIC',
+            envConfig.hidePublic
+                ?? envConfig.hidepublic
+                ?? featuresConfig.hidePublic
+                ?? featuresConfig.hidepublic
+        )
 
         const redis = envConfig.redis || {}
         setEnv('REDIS_ENABLED', redis.enabled ?? redis.ENABLED)
@@ -141,7 +148,10 @@ const envSchema = z.object({
     DEFAULT_LANGUAGE: z.enum(['en', 'ru', 'uk']).default('en'),
 
     // CORS
-    FRONTEND_URL: z.string().default('http://localhost:5173')
+    FRONTEND_URL: z.string().default('http://localhost:5173'),
+
+    // Access gating
+    HIDE_PUBLIC: z.string().optional().default('false')
 })
 
 const env = envSchema.parse({
@@ -191,5 +201,6 @@ export const config = {
     },
 
     defaultLanguage: env.DEFAULT_LANGUAGE,
-    frontendUrl: env.FRONTEND_URL
+    frontendUrl: env.FRONTEND_URL,
+    hidePublic: env.HIDE_PUBLIC === 'true'
 }
